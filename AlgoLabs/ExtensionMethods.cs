@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AlgoLabs
 {
-    public class ExtensionMethods
+    public static class ExtensionMethods
     {
     }
 }
