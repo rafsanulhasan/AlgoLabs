@@ -3,6 +3,6 @@ namespace AlgoLabs
 {
      public enum SortAlgorithms
      {
-          Heap, Insertion, Merge, Quick
+          Automatic, Heap, Insertion, Merge, Quick
      }
 }
