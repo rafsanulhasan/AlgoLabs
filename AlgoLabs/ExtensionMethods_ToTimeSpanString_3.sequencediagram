@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SequenceDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" dslVersion="1.0.0.0" Id="40edf654-c166-42da-b5d3-88dbe695cce0" name="ExtensionMethods_ToTimeSpanString" mode="DotNet" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner">
+  <packagedElements>
+    <packageHasNamedElement>
+      <interaction Id="373b2c50-0ff7-46a7-a48f-6e688c6376ab" name="ExtensionMethods_ToTimeSpanString" collapseFragmentsFlag="false" isActiveClass="false" isAbstract="false" isLeaf="false" isReentrant="false">
+        <fragments>
+          <behaviorExecutionSpecification Id="ede5436b-da38-4017-b1b5-0be5881a9ea8" name="BehaviorExecutionSpecification">
+            <coveredLifelines>
+              <lifelineMoniker Id="839b090d-9967-45d4-a4c7-abe55b415cf1" LastKnownName="timeSpan : TimeSpan" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="f38cca94-004f-41aa-90b5-a232d6e7ec3a" LastKnownName="ExecutionOccurrenceSpecification" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="7e92c083-0bf6-45cd-9667-b732b220165a" LastKnownName="ExecutionOccurrenceSpecification" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="7abce9fa-7824-42b1-ac25-9080743dfa87" LastKnownName="MessageOccurrenceSpecification" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="7e92c083-0bf6-45cd-9667-b732b220165a" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="ca7738bd-6797-41c0-9ff0-575ea4e08b29" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="839b090d-9967-45d4-a4c7-abe55b415cf1" LastKnownName="timeSpan : TimeSpan" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <lostFoundTarget Id="f17d06d5-0faa-4ba9-9283-1bcb3848f017" name="LostFoundTarget" />
+          <messageOccurrenceSpecification Id="7abce9fa-7824-42b1-ac25-9080743dfa87" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="839b090d-9967-45d4-a4c7-abe55b415cf1" LastKnownName="timeSpan : TimeSpan" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="f38cca94-004f-41aa-90b5-a232d6e7ec3a" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="cef8cb46-07f7-4c42-98fc-246d2ec645ac" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="839b090d-9967-45d4-a4c7-abe55b415cf1" LastKnownName="timeSpan : TimeSpan" />
+            </covered>
+          </executionOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline Id="839b090d-9967-45d4-a4c7-abe55b415cf1" name="timeSpan : TimeSpan" isActor="false" lifelineDisplayName="timeSpan : TimeSpan" referencedInstance="(Assembly=&quot;$(e8e0abd7-fff6-4328-b8ed-2000f7479451.OutputPathUri)&quot; Namespace=AlgoLabs Type=ExtensionMethods Member=(Name=ToTimeSpanString OverloadingParameters=[(Assembly=&quot;$(FxReferenceAssembliesUri)/.NETFramework/v4.5/mscorlib.dll&quot; Namespace=System Type=TimeSpan)]) ParameterIdentifier=timeSpan ObjectInstance=&quot;Object instance 1&quot;)" referencedType="System‎.TimeSpan">
+            <referencesInternal>
+              <reference Id="07d70e9f-740e-45ad-8111-7ecfc8404b55" handle="+ Id.Equals(&quot;Microsoft.Solution.ClassView&quot;) /&#xD;&#xA;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Namespace=System)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(FxReferenceAssembliesUri)/.NETFramework/v4.5/mscorlib.dll&amp;quot; Namespace=System Type=TimeSpan)&quot;)" tag="DGQL" />
+              <reference Id="c4fae020-a0c6-4756-8caa-c88edac11c20" handle="(Assembly=&quot;$(FxReferenceAssembliesUri)/.NETFramework/v4.5/mscorlib.dll&quot; Namespace=System Type=TimeSpan)" tag="DGML" />
+            </referencesInternal>
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker Id="7e92c083-0bf6-45cd-9667-b732b220165a" LastKnownName="ExecutionOccurrenceSpecification" />
+              <executionOccurrenceSpecificationMoniker Id="f38cca94-004f-41aa-90b5-a232d6e7ec3a" LastKnownName="ExecutionOccurrenceSpecification" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <messages>
+          <message Id="e4ea1ddd-852c-48c3-aac0-fb71e9ed9297" name="ToTimeSpanString" messageKind="Found" messageSort="AsynchCall" createSelfMessage="false">
+            <referencesInternal>
+              <reference Id="d8342d5c-fd29-44c3-ae25-04008b94bcb9" handle="+ Id.Equals(&quot;Microsoft.Solution.ClassView&quot;) /&#xD;&#xA;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Namespace=AlgoLabs)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(e8e0abd7-fff6-4328-b8ed-2000f7479451.OutputPathUri)&amp;quot; Namespace=AlgoLabs Type=ExtensionMethods)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(e8e0abd7-fff6-4328-b8ed-2000f7479451.OutputPathUri)&amp;quot; Namespace=AlgoLabs Type=ExtensionMethods Member=(Name=ToTimeSpanString OverloadingParameters=[(Assembly=&amp;quot;$(FxReferenceAssembliesUri)/.NETFramework/v4.5/mscorlib.dll&amp;quot; Namespace=System Type=TimeSpan)]))&quot;)" tag="DGQL" />
+              <reference Id="4e9d9a70-6d0b-4f2f-899a-a79507ca08bf" handle="(Assembly=&quot;$(e8e0abd7-fff6-4328-b8ed-2000f7479451.OutputPathUri)&quot; Namespace=AlgoLabs Type=ExtensionMethods Member=(Name=ToTimeSpanString OverloadingParameters=[(Assembly=&quot;$(FxReferenceAssembliesUri)/.NETFramework/v4.5/mscorlib.dll&quot; Namespace=System Type=TimeSpan)]))" tag="DGML" />
+            </referencesInternal>
+            <sendEvent>
+              <lostFoundTargetMoniker Id="f17d06d5-0faa-4ba9-9283-1bcb3848f017" LastKnownName="LostFoundTarget" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="7abce9fa-7824-42b1-ac25-9080743dfa87" LastKnownName="MessageOccurrenceSpecification" />
+            </receiveEvent>
+          </message>
+        </messages>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="ca7738bd-6797-41c0-9ff0-575ea4e08b29" name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="cef8cb46-07f7-4c42-98fc-246d2ec645ac" name="ExecutionEvent" />
+    </packageHasNamedElement>
+  </packagedElements>
+</SequenceDesignerModel>
