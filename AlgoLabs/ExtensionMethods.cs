@@ -90,51 +90,12 @@ namespace AlgoLabs
          }
          public static string ToTimeSpanString( this TimeSpan timeSpan)
          {
-              string result = String.Empty;
-              if (timeSpan.TotalDays < 0)
-              {
-                   if (timeSpan.TotalHours < 0)
-                   {
-                        if (timeSpan.TotalMinutes < 0)
-                        {
-                             if (timeSpan.TotalSeconds<0)
-                                  result = String.Format("{0:X} ms", timeSpan.TotalMilliseconds);
-                             else
-                             {
-                                  result = String.Format("{0} s", timeSpan.TotalSeconds);
-                                  if (timeSpan.TotalMilliseconds > 0)
-                                       result += String.Format(" and {0} ms", timeSpan.TotalMilliseconds);
-                             }
-                        }
-                        else
-                        {
-                             result = String.Format("{0} m", timeSpan.TotalMinutes);
-                             if (timeSpan.TotalSeconds > 0)
-                                  result += timeSpan.TotalMilliseconds > 0 ? String.Format(" {0} s and {1} ms", timeSpan.TotalSeconds, timeSpan.TotalMilliseconds) : String.Format(" and {0} s", timeSpan.TotalSeconds);
-                        }
-                   }
-                   else
-                   {
-                        result = String.Format("{0} h", timeSpan.TotalHours);
-                        if (timeSpan.TotalMinutes < 0)
-                        {
-                             if (timeSpan.TotalSeconds < 0 && timeSpan.TotalMilliseconds > 0)
-                                  result += String.Format(" and {0} ms", timeSpan.TotalMilliseconds);
-                             else
-                             {
-                                  result += String.Format(" {0} s", timeSpan.TotalSeconds);
-                                  result += timeSpan.TotalMilliseconds > 0 ? String.Format(" and {0} ms", timeSpan.TotalMilliseconds) : String.Empty;
-                             }
-                        }
-                        else
-                        {
-                             result += String.Format(" {0} m", timeSpan.TotalMinutes);
-                             if (timeSpan.TotalSeconds > 0)
-                                  result += timeSpan.TotalMilliseconds > 0 ? String.Format(" {0} s and {1} ms", timeSpan.TotalSeconds, timeSpan.TotalMilliseconds) : String.Format(" and {0} s", timeSpan.TotalSeconds);
-                        }
-                   }
-              }
-              return result;
+              int days = timeSpan.TotalDays > 0 ? Int32.Parse(Math.Floor(timeSpan.TotalDays).ToString()) : 0,
+                  hours = timeSpan.TotalHours > 0 ? Int32.Parse(Math.Floor(timeSpan.TotalHours).ToString()) : 0,
+                  mins = timeSpan.TotalMinutes > 0 ? Int32.Parse(Math.Floor(timeSpan.TotalMinutes).ToString()) : 0,
+                  secs = timeSpan.TotalSeconds > 0 ? Int32.Parse(Math.Floor(timeSpan.TotalHours).ToString()) : 0,
+                  ms = timeSpan.TotalMilliseconds > 0 ? Int32.Parse(Math.Floor(timeSpan.TotalMilliseconds).ToString()) : 0;
+              return String.Format("{0} d {1} h {2} m {3} s {4:F3} ms", days, hours, mins, secs, timeSpan.TotalMilliseconds);
          }
     }
 }
