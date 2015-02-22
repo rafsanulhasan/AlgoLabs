@@ -188,9 +188,25 @@ namespace AlgoLabs
               left = left == Int32.MinValue ? 0 : left;
               right = right == Int32.MinValue ? length - 1 : right;
               T[] leftArray, rightArray, temp;
+              IComparer comparer = new CaseInsensitiveComparer();
               switch (algorithm)
               {
                    case SortAlgorithms.Heap:
+                        break;
+                   case SortAlgorithms.Bubble:
+                        if (callStyle == MethodCallStyle.Iterative)
+                        {
+                             for (int pass = 1; pass <= array.Length - 2; pass++)
+                             {
+                                  for (int i = 0; i <= array.Length - 2; i++)
+                                  {
+                                       if (comparer.Compare(array[i], array[i + 1]) > 0)
+                                            array[i].Swap(ref array[i], ref array[i + 1]);
+
+                                  }
+
+                             }
+                        }
                         break;
                    case SortAlgorithms.Insertion:
                         break;
