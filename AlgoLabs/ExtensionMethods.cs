@@ -72,9 +72,6 @@ namespace AlgoLabs
 
     
          /// <summary>
-         /// // ********************************************************* //
-         /// This algorithm is created by Course Faculty
-         /// // ********************************************************* //
          /// Creates a partition from the given range
          /// </summary>
          /// <param name="array"></param>
@@ -123,9 +120,6 @@ namespace AlgoLabs
               }
          }
          /// <summary>
-         /// // ********************************************************* //
-         /// This algorithm is created by Course Faculty
-         /// // ********************************************************* //
          /// Prints the values of array (separated by space)
          /// Also prints the running time (if provided)
          /// </summary>
@@ -143,9 +137,6 @@ namespace AlgoLabs
                    Console.WriteLine("\t\t{0}", runningTime.Value.ToTimeSpanString());
          }
          /// <summary>
-         /// // ********************************************************* //
-         /// This algorithm is created by Course Faculty
-         /// // ********************************************************* //
          /// Prints the values of array (separated by space)
          /// Also prints the running time (if provided)
          /// </summary>
@@ -176,160 +167,167 @@ namespace AlgoLabs
                    array[i] = reversed[i];
          }
 
-         public static void Sort<T>(this T[] array, out T[] sortedArray, out TimeSpan runningTime, SortAlgorithms algorithm = SortAlgorithms.Automatic, SortOrders sortOrder = SortOrders.Ascending, MethodCallStyle callStyle=MethodCallStyle.Recursive, int left = Int32.MinValue, int right = Int32.MinValue) where T:struct
+         public static void BubbleSort<T>(this T[] array, 
+              int start=-1, int end=-1, 
+              SortOrders order= SortOrders.Ascending, 
+              MethodCallStyle style = MethodCallStyle.Iterative) where T:struct
          {
-              DateTime startTime = DateTime.Now, endTime;
-              sortedArray = array;
-              runningTime = new TimeSpan(0, 0, 0, 0, 0);
-              TimeSpan leftRunningTime = new TimeSpan(0, 0, 0, 0, 0),
-                   rightRunningTime = new TimeSpan(0, 0, 0, 0, 0),
-                   runningTime2 = new TimeSpan(0, 0, 0, 0, 0);
+              IComparer comparer = new CaseInsensitiveComparer();       
               int length = array.Length;
-              left = left == Int32.MinValue ? 0 : left;
-              right = right == Int32.MinValue ? length - 1 : right;
-              T[] leftArray, rightArray, temp;
-              IComparer comparer = new CaseInsensitiveComparer();
-              switch (algorithm)
+              start= start == -1 ? 0 : start;
+              end = end == -1 ? length - 1 : end;
+              if (style == MethodCallStyle.Iterative)
               {
-                   case SortAlgorithms.Heap:
-                        break;
-                   case SortAlgorithms.Bubble:
-                        right = left = 0;
-                        if (callStyle == MethodCallStyle.Iterative)
+                   for (int pass = 1; pass < end; pass++)
+                   {
+                        for (int i = 0; i < end; i++)
                         {
-                             for (int pass = 1; pass <= array.Length - 2; pass++)
+                             if (order == SortOrders.Ascending)
                              {
-                                  for (int i = 0; i <= array.Length - 2; i++)
-                                  {
-                                       if (comparer.Compare(array[i], array[i + 1]) > 0)
-                                            sortedArray[i].Swap(ref sortedArray[i], ref sortedArray[i + 1]);
-
-                                  }
-
+                                  if (comparer.Compare(array[i], array[i + 1]) > 0)
+                                       array[i].Swap(ref array[i], ref array[i + 1]);
                              }
-                        }
-                        else if (callStyle == MethodCallStyle.Recursive)
-                        {
-                             if (left == length - 1) return;
-                             if (right == length - 1)
-                                  array.Sort(out sortedArray, out runningTime2, algorithm: SortAlgorithms.Bubble, callStyle: MethodCallStyle.Recursive, left: left + 1, right: left + 1);
-
-                             //compare items at current index and current index + 1 and swap if required
-                             int nextIndex = right + 1;
-                             if (comparer.Compare(array[right], array[nextIndex]) > 0)
-                                  array.Swap(ref array[right], ref array[nextIndex]);
-                             array.Sort(out sortedArray, out runningTime2, algorithm: SortAlgorithms.Bubble, callStyle: MethodCallStyle.Recursive, left: left, right: right + 1);
-                        }
-                        break;
-                   case SortAlgorithms.Insertion:
-                        break;
-                   case SortAlgorithms.Merge:
-                        if (length < 2 || left==right)
-                        {
-                             endTime = DateTime.Now;
-                             runningTime = endTime - startTime;
-                             return;
-                        }
-                        int mid = ((double)(length / 2)).ToInt32();
-                        if (callStyle == MethodCallStyle.Recursive)
-                        {
-                             // ****************************************************************************** //
-                             // This algorithm is created by course faculty //  
-                             leftArray = new T[mid];
-                             rightArray = new T[length - mid];
-                             for (int i = 0; i < mid; i++)
-                                  leftArray[i] = array[i];
-                             for (int i = mid; i < length; i++)
-                                  rightArray[i - mid] = array[i];
-                             leftArray.Sort(out leftArray, out leftRunningTime, algorithm: SortAlgorithms.Merge);
-                             rightArray.Sort(out rightArray, out rightRunningTime, algorithm: SortAlgorithms.Merge);
-                             sortedArray.Merge(ref leftArray, ref rightArray);
-                             // ****************************************************************************** //
-
-                        }
-                        else if (callStyle==MethodCallStyle.Iterative)
-                        {
-                             temp = new T[length];
-                             Array.Copy(array, temp, length);
-                             for (int runWidth = 1; runWidth < array.Length; runWidth = 2 * runWidth)
+                             else if (order == SortOrders.Descending)
                              {
-                                  for (int eachRunStart = 0; eachRunStart < array.Length;
-                                      eachRunStart = eachRunStart + 2 * runWidth)
-                                  {
-                                       int start = eachRunStart;
-                                        mid = eachRunStart + (runWidth - 1);
-                                       if (mid >= array.Length)
-                                            mid = array.Length - 1;
-                                       int end = eachRunStart + ((2 * runWidth) - 1);
-                                       if (end >= array.Length)
-                                            end = array.Length - 1;
-
-                                       array.Merge(start, mid, end, temp);
-                                  }
-                                  for (int i = 0; i < array.Length; i++)
-                                       array[i] = temp[i];
-                             }
-                         }
-                        break;
-                   case SortAlgorithms.Quick:
-                        int pivot;
-                        if (callStyle == MethodCallStyle.Iterative)
-                        {
-                             // Create an auxiliary stack
-                             int[] stack = new int[right - left + 1];
-                             // initialize top of stack
-                             int top = -1;
-                             // push initial values of l and h to stack
-                             stack[++top] = left;
-                             stack[++top] = right;
-                             // Keep popping from stack while is not empty
-                             while (top >= 0)
-                             {
-                                  // Pop h and l
-                                  right = stack[top--];
-                                  left = stack[top--];
-                                  // Set pivot element at its correct position in sorted array
-                                  array.Partition(out pivot, MethodCallStyle.Iterative, left, right);
-                                  // If there are elements on left side of pivot, then push left side to stack
-                                  if (pivot - 1 > left)
-                                  {
-                                       stack[++top] = left;
-                                       stack[++top] = pivot - 1;
-                                  }
-                                  // If there are elements on right side of pivot, then push right side to stack
-                                  if (pivot + 1 < right)
-                                  {
-                                       stack[++top] = pivot + 1;
-                                       stack[++top] = right;
-                                  }
-                             }
-                        }
-                        else if (callStyle == MethodCallStyle.Iterative)
-                        {
-                             array.Partition(out pivot, callStyle, left: left, right: right);
-                             if (left < right)
-                             {
-                                  if (pivot > 1)
-                                       array.Sort(out sortedArray, out runningTime2, algorithm: SortAlgorithms.Quick, left: left, right: pivot - 1);
-
-                                  if (pivot + 1 < right)
-                                       array.Sort(out sortedArray, out runningTime2, algorithm: SortAlgorithms.Quick, left: pivot + 1, right: right);
+                                  if (comparer.Compare(array[i], array[i + 1]) < 0)
+                                       array[i].Swap(ref array[i + 1], ref array[i]);
                              }
                         }
 
-                        break;
-                   default:
-                        break;
+                   }
               }
-              if (sortOrder == SortOrders.Descending)
-                   sortedArray.Reverse();
-              endTime = DateTime.Now;
-              runningTime = endTime - startTime;
-              if (leftRunningTime > new TimeSpan(0, 0, 0, 0, 0) && rightRunningTime > new TimeSpan(0, 0, 0, 0, 0))
-                   runningTime += leftRunningTime + rightRunningTime;
-              else if (runningTime2 > new TimeSpan(0, 0, 0, 0, 0))
-                   runningTime += runningTime2;
+              else if (style == MethodCallStyle.Recursive)
+              {
+                   if (start >= end) return;
+                   if (order == SortOrders.Ascending)
+                   {
+                        if (comparer.Compare(array[start], array[start + 1]) > 0)
+                             array[start].Swap(ref array[start], ref array[start + 1]);
+                   }
+                   else if (order == SortOrders.Descending)
+                   {
+                        if (comparer.Compare(array[start], array[start + 1]) < 0)
+                             array[start].Swap(ref array[start + 1], ref array[start]);
+                   }
+                   array.BubbleSort(start + 1, end, order, style);
+                   array.BubbleSort(start, end - 1, order, style);
+              }
          }
+
+         public static void MergeSort<T>(this T[] array, 
+              int left = -1, 
+              int right = -1, 
+              SortOrders order = SortOrders.Ascending,
+              MethodCallStyle style = MethodCallStyle.Iterative) where T : struct
+         {
+              int length = array.Length;
+              left = left == -1 ? 0 : left;
+              right = right == -1 ? length - 1 : right;
+              IComparer comparer = new CaseInsensitiveComparer();
+              int mid = ((double)(length / 2)).ToInt32();
+              T[] temp;
+              if (style == MethodCallStyle.Iterative)
+              {
+                   temp = new T[length];
+                   Array.Copy(array, temp, length);
+                   for (int runWidth = 1; runWidth < array.Length; runWidth = 2 * runWidth)
+                   {
+                        for (int eachRunStart = 0; eachRunStart < array.Length;
+                            eachRunStart = eachRunStart + 2 * runWidth)
+                        {
+                             int start = eachRunStart;
+                             mid = eachRunStart + (runWidth - 1);
+                             if (mid >= array.Length)
+                                  mid = array.Length - 1;
+                             int end = eachRunStart + ((2 * runWidth) - 1);
+                             if (end >= array.Length)
+                                  end = array.Length - 1;
+
+                             array.Merge(start, mid, end, temp);
+                        }
+                        for (int i = 0; i < array.Length; i++)
+                             array[i] = temp[i];
+                   }
+              }
+              else if (style == MethodCallStyle.Recursive)
+              {
+                   // ****************************************************************************** //
+                   // This algorithm is created by course faculty // 
+                   if (length < 2 || left == right) return;
+                   T[] leftArray, rightArray;
+                   leftArray = new T[mid];
+                   rightArray = new T[length - mid];
+                   for (int i = 0; i < mid; i++)
+                        leftArray[i] = array[i];
+                   for (int i = mid; i < length; i++)
+                        rightArray[i - mid] = array[i];
+                   leftArray.MergeSort();
+                   rightArray.MergeSort();
+                   array.Merge(ref leftArray, ref rightArray, style);
+                   // ****************************************************************************** //
+
+              }
+              if (order == SortOrders.Descending)
+                   array.Reverse();
+         }
+
+         public static void QuickSort<T>(this T[] array, 
+              int left = -1, 
+              int right = -1, 
+              SortOrders order = SortOrders.Ascending, 
+              MethodCallStyle style = MethodCallStyle.Iterative) where T : struct
+         {
+              int length = array.Length, pivot;
+              left = left == -1 ? 0 : left;
+              right = right == -1 ? length - 1 : right;
+              IComparer comparer = new CaseInsensitiveComparer(); 
+              if (style == MethodCallStyle.Iterative)
+              {
+                   // Create an auxiliary stack
+                   int[] stack = new int[right - left + 1];
+                   // initialize top of stack
+                   int top = -1;
+                   // push initial values of l and h to stack
+                   stack[++top] = left;
+                   stack[++top] = right;
+                   // Keep popping from stack while is not empty
+                   while (top >= 0)
+                   {
+                        // Pop h and l
+                        right = stack[top--];
+                        left = stack[top--];
+                        // Set pivot element at its correct position in sorted array
+                        array.Partition(out pivot, MethodCallStyle.Iterative, left, right);
+                        // If there are elements on left side of pivot, then push left side to stack
+                        if (pivot - 1 > left)
+                        {
+                             stack[++top] = left;
+                             stack[++top] = pivot - 1;
+                        }
+                        // If there are elements on right side of pivot, then push right side to stack
+                        if (pivot + 1 < right)
+                        {
+                             stack[++top] = pivot + 1;
+                             stack[++top] = right;
+                        }
+                   }
+              }
+              else if (style == MethodCallStyle.Recursive)
+              {
+                   array.Partition(out pivot, style, left: left, right: right);
+                   if (left < right)
+                   {
+                        if (pivot > 1)
+                             array.QuickSort(left, pivot - 1);
+
+                        if (pivot + 1 < right)
+                             array.QuickSort(pivot + 1, right);
+                   }
+              }
+              if (order == SortOrders.Descending)
+                   array.Reverse();
+         }
+
          public static void Swap<T>(this object Object, ref T mainObject, ref T swappingObject)
          {
               T tmp = mainObject;
