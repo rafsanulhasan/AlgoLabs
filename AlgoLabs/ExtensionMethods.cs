@@ -38,7 +38,7 @@ namespace AlgoLabs
                         break;
               }
          }
-         public static void Merge<T>(this T[] array, int start, int mid, int end, T[] temp)
+         private static void Merge<T>(this T[] array, int start, int mid, int end, T[] temp)
          {
               int i = start, j = mid + 1, k = start;
               IComparer comparer = new CaseInsensitiveComparer();
@@ -187,7 +187,7 @@ namespace AlgoLabs
               int length = array.Length;
               left = left == Int32.MinValue ? 0 : left;
               right = right == Int32.MinValue ? length - 1 : right;
-              T[] leftArray, rightArray;
+              T[] leftArray, rightArray, temp;
               switch (algorithm)
               {
                    case SortAlgorithms.Heap:
@@ -195,7 +195,7 @@ namespace AlgoLabs
                    case SortAlgorithms.Insertion:
                         break;
                    case SortAlgorithms.Merge:
-                        if (length < 2)
+                        if (length < 2 || left==right)
                         {
                              endTime = DateTime.Now;
                              runningTime = endTime - startTime;
@@ -216,10 +216,11 @@ namespace AlgoLabs
                              rightArray.Sort(out rightArray, out rightRunningTime, algorithm: SortAlgorithms.Merge);
                              sortedArray.Merge(ref leftArray, ref rightArray);
                              // ****************************************************************************** //
+
                         }
                         else if (callStyle==MethodCallStyle.Iterative)
                         {
-                             T[] temp = new T[length];
+                             temp = new T[length];
                              Array.Copy(array, temp, length);
                              for (int runWidth = 1; runWidth < array.Length; runWidth = 2 * runWidth)
                              {
@@ -229,14 +230,10 @@ namespace AlgoLabs
                                        int start = eachRunStart;
                                         mid = eachRunStart + (runWidth - 1);
                                        if (mid >= array.Length)
-                                       {
                                             mid = array.Length - 1;
-                                       }
                                        int end = eachRunStart + ((2 * runWidth) - 1);
                                        if (end >= array.Length)
-                                       {
                                             end = array.Length - 1;
-                                       }
 
                                        array.Merge(start, mid, end, temp);
                                   }
