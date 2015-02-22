@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SequenceDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" dslVersion="1.0.0.0" Id="3f996f77-343e-457b-bcc2-f31dc2da72a7" name="Start_Main" mode="DotNet" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner">
+  <packagedElements>
+    <packageHasNamedElement>
+      <interaction Id="c2b22756-a12a-4c1e-b867-93e6c45db27d" name="Start_Main" collapseFragmentsFlag="false" isActiveClass="false" isAbstract="false" isLeaf="false" isReentrant="false">
+        <fragments>
+          <behaviorExecutionSpecification Id="4607bf74-d3cd-44b9-9acb-e378306fa0c6" name="BehaviorExecutionSpecification">
+            <coveredLifelines>
+              <lifelineMoniker Id="165ad18a-c46a-4118-a366-4bce4d6879b9" LastKnownName="Start" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="8bea9a5e-ea95-48c0-a418-cc02363a55ca" LastKnownName="ExecutionOccurrenceSpecification" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="b40cef78-39ac-4157-a3c7-dba6ee40d091" LastKnownName="ExecutionOccurrenceSpecification" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="b2d0d02d-69fc-4b98-aebe-847be8926fe7" LastKnownName="MessageOccurrenceSpecification" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="b40cef78-39ac-4157-a3c7-dba6ee40d091" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="77ee6f8e-6099-4d8c-9472-92faa76455da" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="165ad18a-c46a-4118-a366-4bce4d6879b9" LastKnownName="Start" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <lostFoundTarget Id="97732c03-8ea3-4d8d-8240-19e13682e7d8" name="LostFoundTarget" />
+          <messageOccurrenceSpecification Id="b2d0d02d-69fc-4b98-aebe-847be8926fe7" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="165ad18a-c46a-4118-a366-4bce4d6879b9" LastKnownName="Start" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="8bea9a5e-ea95-48c0-a418-cc02363a55ca" name="ExecutionOccurrenceSpecification">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="ff2b798a-0138-4cd4-80ef-94df3e98ad1d" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="165ad18a-c46a-4118-a366-4bce4d6879b9" LastKnownName="Start" />
+            </covered>
+          </executionOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline Id="165ad18a-c46a-4118-a366-4bce4d6879b9" name="Start" isActor="false" lifelineDisplayName="Start" referencedType="AlgoLabs‎.Start">
+            <referencesInternal>
+              <reference Id="9929c71d-b70e-4266-98bf-d55feb6db9a9" handle="+ Id.Equals(&quot;Microsoft.Solution.ClassView&quot;) /&#xD;&#xA;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Namespace=AlgoLabs)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(e8e0abd7-fff6-4328-b8ed-2000f7479451.OutputPathUri)&amp;quot; Namespace=AlgoLabs Type=Start)&quot;)" tag="DGQL" />
+              <reference Id="8812bb74-d72b-4e87-b947-3ba9f7e7cdd4" handle="(Assembly=&quot;$(e8e0abd7-fff6-4328-b8ed-2000f7479451.OutputPathUri)&quot; Namespace=AlgoLabs Type=Start)" tag="DGML" />
+            </referencesInternal>
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker Id="b40cef78-39ac-4157-a3c7-dba6ee40d091" LastKnownName="ExecutionOccurrenceSpecification" />
+              <executionOccurrenceSpecificationMoniker Id="8bea9a5e-ea95-48c0-a418-cc02363a55ca" LastKnownName="ExecutionOccurrenceSpecification" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <messages>
+          <message Id="88983e03-a709-4e1d-ad6e-935a607a3137" name="Main" messageKind="Found" messageSort="AsynchCall" createSelfMessage="false">
+            <referencesInternal>
+              <reference Id="cec283d8-2944-4fca-bb4b-59999943ea39" handle="+ Id.Equals(&quot;Microsoft.Solution.ClassView&quot;) /&#xD;&#xA;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Namespace=AlgoLabs)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(e8e0abd7-fff6-4328-b8ed-2000f7479451.OutputPathUri)&amp;quot; Namespace=AlgoLabs Type=Start)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(e8e0abd7-fff6-4328-b8ed-2000f7479451.OutputPathUri)&amp;quot; Namespace=AlgoLabs Type=Start Member=(Name=Main OverloadingParameters=[(Assembly=&amp;quot;$(FxReferenceAssembliesUri)/.NETFramework/v4.5/mscorlib.dll&amp;quot; Namespace=System Type=(Name=String ArrayRank=1 ParentType=String))]))&quot;)" tag="DGQL" />
+              <reference Id="e825ed9b-26de-4fcf-9fd1-b62c3d0fd090" handle="(Assembly=&quot;$(e8e0abd7-fff6-4328-b8ed-2000f7479451.OutputPathUri)&quot; Namespace=AlgoLabs Type=Start Member=(Name=Main OverloadingParameters=[(Assembly=&quot;$(FxReferenceAssembliesUri)/.NETFramework/v4.5/mscorlib.dll&quot; Namespace=System Type=(Name=String ArrayRank=1 ParentType=String))]))" tag="DGML" />
+            </referencesInternal>
+            <sendEvent>
+              <lostFoundTargetMoniker Id="97732c03-8ea3-4d8d-8240-19e13682e7d8" LastKnownName="LostFoundTarget" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="b2d0d02d-69fc-4b98-aebe-847be8926fe7" LastKnownName="MessageOccurrenceSpecification" />
+            </receiveEvent>
+          </message>
+        </messages>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="77ee6f8e-6099-4d8c-9472-92faa76455da" name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="ff2b798a-0138-4cd4-80ef-94df3e98ad1d" name="ExecutionEvent" />
+    </packageHasNamedElement>
+  </packagedElements>
+</SequenceDesignerModel>

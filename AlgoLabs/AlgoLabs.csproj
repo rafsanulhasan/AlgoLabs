@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,17 +34,69 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Presentation" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="MethodCallStyle.cs" />
+    <Compile Include="PositionInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SortingAlgorithms.cs" />
+    <Compile Include="SortOrders.cs" />
+    <Compile Include="Start.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ExtensionMethods_Merge.sequencediagram" />
+    <None Include="ExtensionMethods_Partition.sequencediagram" />
+    <None Include="ExtensionMethods_Print.sequencediagram" />
+    <None Include="ExtensionMethods_Print_1.sequencediagram" />
+    <None Include="ExtensionMethods_Reverse.sequencediagram" />
+    <None Include="ExtensionMethods_Sort.sequencediagram" />
+    <None Include="ExtensionMethods_Swap.sequencediagram" />
+    <None Include="ExtensionMethods_ToTimeSpanString.sequencediagram" />
+    <None Include="Start_Main.sequencediagram" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ExtensionMethods_Merge.sequencediagram.layout">
+      <DependentUpon>ExtensionMethods_Merge.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtensionMethods_Partition.sequencediagram.layout">
+      <DependentUpon>ExtensionMethods_Partition.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtensionMethods_Print.sequencediagram.layout">
+      <DependentUpon>ExtensionMethods_Print.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtensionMethods_Print_1.sequencediagram.layout">
+      <DependentUpon>ExtensionMethods_Print_1.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtensionMethods_Reverse.sequencediagram.layout">
+      <DependentUpon>ExtensionMethods_Reverse.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtensionMethods_Sort.sequencediagram.layout">
+      <DependentUpon>ExtensionMethods_Sort.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtensionMethods_Swap.sequencediagram.layout">
+      <DependentUpon>ExtensionMethods_Swap.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtensionMethods_ToTimeSpanString.sequencediagram.layout">
+      <DependentUpon>ExtensionMethods_ToTimeSpanString.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Start_Main.sequencediagram.layout">
+      <DependentUpon>Start_Main.sequencediagram</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
