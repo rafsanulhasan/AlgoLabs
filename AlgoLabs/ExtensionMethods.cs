@@ -194,6 +194,7 @@ namespace AlgoLabs
                    case SortAlgorithms.Heap:
                         break;
                    case SortAlgorithms.Bubble:
+                        right = left = 0;
                         if (callStyle == MethodCallStyle.Iterative)
                         {
                              for (int pass = 1; pass <= array.Length - 2; pass++)
@@ -201,11 +202,23 @@ namespace AlgoLabs
                                   for (int i = 0; i <= array.Length - 2; i++)
                                   {
                                        if (comparer.Compare(array[i], array[i + 1]) > 0)
-                                            array[i].Swap(ref array[i], ref array[i + 1]);
+                                            sortedArray[i].Swap(ref sortedArray[i], ref sortedArray[i + 1]);
 
                                   }
 
                              }
+                        }
+                        else if (callStyle == MethodCallStyle.Recursive)
+                        {
+                             if (left == length - 1) return;
+                             if (right == length - 1)
+                                  array.Sort(out sortedArray, out runningTime2, algorithm: SortAlgorithms.Bubble, callStyle: MethodCallStyle.Recursive, left: left + 1, right: left + 1);
+
+                             //compare items at current index and current index + 1 and swap if required
+                             int nextIndex = right + 1;
+                             if (comparer.Compare(array[right], array[nextIndex]) > 0)
+                                  array.Swap(ref array[right], ref array[nextIndex]);
+                             array.Sort(out sortedArray, out runningTime2, algorithm: SortAlgorithms.Bubble, callStyle: MethodCallStyle.Recursive, left: left, right: right + 1);
                         }
                         break;
                    case SortAlgorithms.Insertion:
