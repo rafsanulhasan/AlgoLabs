@@ -34,6 +34,8 @@ namespace AlgoTest
                     actual.MergeSort(order: order, style: style);
                if (algorithm == SortAlgorithms.Quick)
                     actual.QuickSort(order: order, style: style);
+               if (algorithm == SortAlgorithms.Quick)
+                    actual.SelectionSort(order: order, style: style);
           }
           [TestMethod]
           public void TestBubbleSort()
@@ -115,6 +117,33 @@ namespace AlgoTest
                Process(ref list, ref array, SortAlgorithms.Quick, MethodCallStyle.Recursive, false);
                for (int i = 0; i < list.Count; i++)
                     Assert.AreEqual(list[i], array[i]);
-          }                
+          }
+          [TestMethod]
+          public void TestSelectionSort()
+          {
+               List<int> list = GenerateRandomList();
+               int[] array = new int[list.Count];
+               Process(ref list, ref array, SortAlgorithms.Selection);
+               for (int i = 0; i < list.Count; i++)
+                    Assert.AreEqual(list[i], array[i]);
+
+               list = GenerateRandomList();
+               array = new int[list.Count];
+               Process(ref list, ref array, SortAlgorithms.Quick, isAscending: false);
+               for (int i = 0; i < list.Count; i++)
+                    Assert.AreEqual(list[i], array[i]);
+
+               list = GenerateRandomList();
+               array = new int[list.Count];
+               Process(ref list, ref array, SortAlgorithms.Quick, MethodCallStyle.Recursive);
+               for (int i = 0; i < list.Count; i++)
+                    Assert.AreEqual(list[i], array[i]);
+
+               list = GenerateRandomList();
+               array = new int[list.Count];
+               Process(ref list, ref array, SortAlgorithms.Quick, MethodCallStyle.Recursive, false);
+               for (int i = 0; i < list.Count; i++)
+                    Assert.AreEqual(list[i], array[i]);
+          }                 
      }
 }
