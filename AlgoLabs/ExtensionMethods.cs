@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace AlgoLabs
 {
@@ -38,7 +39,7 @@ namespace AlgoLabs
                         break;
               }
          }
-         private static void Merge<T>(this T[] array, int start, int mid, int end, T[] temp)
+         private static void Merge<T>(this T[] array, int start, int mid, int end, T[] temp, SortOrders order = SortOrders.Ascending)
          {
               int i = start, j = mid + 1, k = start;
               IComparer comparer = new CaseInsensitiveComparer();
@@ -72,52 +73,40 @@ namespace AlgoLabs
 
     
          /// <summary>
-         /// Creates a partition from the given range
+         /// Divides array from pivot, left side contains elements less than pivot 
+         /// while right side contains elements greater than pivot.
          /// </summary>
-         /// <param name="array"></param>
-         /// <param name="left"></param>
-         /// <param name="right"></param>
-         /// <returns></returns>        
-         private static void Partition<T>(this T[] array, out int result, MethodCallStyle callStyle = MethodCallStyle.Recursive, int left = Int32.MinValue, int right = Int32.MinValue) where T : struct
+         /// <param name="array">array to partitioned</param>
+         /// <param name="left">left lower bound of the array</param>
+         /// <param name="right">right upper bound of the array</param>
+         /// <returns>the partition index</returns>        
+         private static int Partition<T>(this T[] array,
+              int left,
+              int right,
+              SortOrders order = SortOrders.Ascending,
+              MethodCallStyle style = MethodCallStyle.Iterative) where T : struct
          {
-              result = Int32.MinValue;
-              left = left == Int32.MinValue ? 0 : left;
-              right = right == Int32.MinValue ? array.Length - 1 : right; ;
+              int length = array.Length;
               IComparer comparer = new CaseInsensitiveComparer();
               T pivot;
-              switch (callStyle)
+              int l = left, r = right;
+              pivot = array[left];
+              while (l < r)
               {
-                   case MethodCallStyle.Iterative:
-                        int k = left - 1;
-                        pivot = array[right];
-                        for (int i = left; i < right; i++)
-                        {
-                             if (comparer.Compare(array[i], pivot) <= 0)
-                             {
-                                  k++;
-                                  array[k].Swap(ref array[k], ref array[i]);
-                             }
-                        }
-                        array[k + 1].Swap(ref array[k + 1], ref array[right]);
-                        result = k + 1;
-                        break;
-                   default:
-                        pivot = array[left];
-                        while (true)
-                        {
-                             while (comparer.Compare(array[left], pivot) < 0)
-                                  left++;
-
-                             while (comparer.Compare(array[right], pivot) > 0)
-                                  right--;
-
-                             if (left < right)
-                                  left.Swap(ref array[left], ref array[right]);
-                             else
-                                  result = right;
-                        }
-                        break;
+                   if (order == SortOrders.Ascending)
+                   {
+                        while (comparer.Compare(pivot, array[r]) < 0) r--;
+                        while (comparer.Compare(pivot, array[l]) > 0) l++;
+                   }
+                   else if (order == SortOrders.Descending)
+                   {
+                        while (comparer.Compare(pivot, array[r]) > 0) r--;
+                        while (comparer.Compare(pivot, array[l]) < 0) l++;
+                   }
+                   if (l < r)
+                        array[l].Swap(ref array[l], ref array[r]);
               }
+              return r;
          }
          /// <summary>
          /// Prints the values of array (separated by space)
@@ -129,12 +118,12 @@ namespace AlgoLabs
          /// <param name="runningTime"></param>
          public static void Print<T, Algorithm>(this T[] array, Algorithm algorithm, TimeSpan? runningTime)   where T:struct
          {
-              Console.Write("\n{0}\t\t{1}\t\t", algorithm.ToString(), MethodCallStyle.None.ToString());            
+              Console.Write("{0}\t\t{1}\t\t", algorithm.ToString(), MethodCallStyle.None.ToString());            
               for (int i = 0; i < array.Length - 1; i++)
                    Console.Write("{0} ", array[i]);
               Console.Write(array[array.Length - 1]);
               if (runningTime.HasValue)
-                   Console.WriteLine("\t\t{0}", runningTime.Value.ToTimeSpanString());
+                   Console.Write("\t\t{0}\n", runningTime.Value);
          }
          /// <summary>
          /// Prints the values of array (separated by space)
@@ -146,25 +135,12 @@ namespace AlgoLabs
          /// <param name="runningTime"></param>
          public static void Print<T, Algorithm, CallStyle>(this T[] array, Algorithm algorithm, CallStyle callStyle, TimeSpan? runningTime)  where T:struct
          {
-              Console.Write("\n{0}\t\t{1}\t", algorithm.ToString(), callStyle.ToString());
+              Console.Write("{0}\t\t{1}\t", algorithm.ToString(), callStyle.ToString());
               for (int i = 0; i < array.Length - 1; i++)
                    Console.Write("{0} ", array[i]);
               Console.Write(array[array.Length - 1]);
               if (runningTime.HasValue)
-                   Console.WriteLine("\t\t{0}", runningTime.Value.ToTimeSpanString());
-         }
-
-         /// <summary>
-         /// Reverses the array
-         /// </summary>
-         /// <param name="array"></param>
-         public static void Reverse<T>(this T[] array) where T:struct
-         {
-              T[] reversed = new T[array.Length];
-              for (int i = 0; i < array.Length; i++)
-                   reversed[i] = array[array.Length - i - 1];
-              for (int i = 0; i < array.Length; i++)
-                   array[i] = reversed[i];
+                   Console.Write("\t\t{0}\n", runningTime.Value.ToTimeSpanString());
          }
 
          public static void BubbleSort<T>(this T[] array, 
@@ -224,13 +200,13 @@ namespace AlgoLabs
               left = left == -1 ? 0 : left;
               right = right == -1 ? length - 1 : right;
               IComparer comparer = new CaseInsensitiveComparer();
-              int mid = ((double)(length / 2)).ToInt32();
+              int mid = length / 2;
               T[] temp;
               if (style == MethodCallStyle.Iterative)
               {
                    temp = new T[length];
                    Array.Copy(array, temp, length);
-                   for (int runWidth = 1; runWidth < array.Length; runWidth = 2 * runWidth)
+                   for (int runWidth = 1; runWidth < array.Length; runWidth *= 2)
                    {
                         for (int eachRunStart = 0; eachRunStart < array.Length;
                             eachRunStart = eachRunStart + 2 * runWidth)
@@ -243,17 +219,17 @@ namespace AlgoLabs
                              if (end >= array.Length)
                                   end = array.Length - 1;
 
-                             array.Merge(start, mid, end, temp);
+                             array.Merge(start, mid, end, temp, order);
                         }
-                        for (int i = 0; i < array.Length; i++)
-                             array[i] = temp[i];
+                        //if (order == SortOrders.Ascending)
+                             Array.Copy(temp, array, length);
                    }
               }
               else if (style == MethodCallStyle.Recursive)
               {
                    // ****************************************************************************** //
                    // This algorithm is created by course faculty // 
-                   if (length < 2 || left == right) return;
+                   if (length < 2) return;
                    T[] leftArray, rightArray;
                    leftArray = new T[mid];
                    rightArray = new T[length - mid];
@@ -261,71 +237,47 @@ namespace AlgoLabs
                         leftArray[i] = array[i];
                    for (int i = mid; i < length; i++)
                         rightArray[i - mid] = array[i];
-                   leftArray.MergeSort();
-                   rightArray.MergeSort();
+                   leftArray.MergeSort(style: MethodCallStyle.Recursive);
+                   rightArray.MergeSort(style: MethodCallStyle.Recursive);
                    array.Merge(ref leftArray, ref rightArray, style);
                    // ****************************************************************************** //
-
               }
-              if (order == SortOrders.Descending)
-                   array.Reverse();
+              //if (order == SortOrders.Descending)
+              //     array.Reverse();
          }
 
-         public static void QuickSort<T>(this T[] array, 
-              int left = -1, 
-              int right = -1, 
-              SortOrders order = SortOrders.Ascending, 
+         public static void QuickSort<T>(this T[] array,
+              int left = Int32.MinValue,
+              int right = Int32.MinValue,
+              SortOrders order = SortOrders.Ascending,
               MethodCallStyle style = MethodCallStyle.Iterative) where T : struct
          {
               int length = array.Length, pivot;
-              left = left == -1 ? 0 : left;
-              right = right == -1 ? length - 1 : right;
-              IComparer comparer = new CaseInsensitiveComparer(); 
+              left = left == Int32.MinValue ? 0 : left;
+              right = right == Int32.MinValue ? length - 1 : right;
+              IComparer comparer = new CaseInsensitiveComparer();
               if (style == MethodCallStyle.Iterative)
               {
-                   // Create an auxiliary stack
-                   int[] stack = new int[right - left + 1];
-                   // initialize top of stack
-                   int top = -1;
-                   // push initial values of l and h to stack
-                   stack[++top] = left;
-                   stack[++top] = right;
-                   // Keep popping from stack while is not empty
-                   while (top >= 0)
+                   for (int i = left; i < right; i++)
                    {
-                        // Pop h and l
-                        right = stack[top--];
-                        left = stack[top--];
-                        // Set pivot element at its correct position in sorted array
-                        array.Partition(out pivot, MethodCallStyle.Iterative, left, right);
-                        // If there are elements on left side of pivot, then push left side to stack
-                        if (pivot - 1 > left)
-                        {
-                             stack[++top] = left;
-                             stack[++top] = pivot - 1;
-                        }
-                        // If there are elements on right side of pivot, then push right side to stack
-                        if (pivot + 1 < right)
-                        {
-                             stack[++top] = pivot + 1;
-                             stack[++top] = right;
-                        }
+                        pivot = array.Partition(left, right, order);
+                        for (int j = i; j < pivot; j++)
+                             pivot = array.Partition(i, pivot, order);
+                        for (int j = pivot + 1; j < right; j++)
+                             pivot = array.Partition(j, right, order);
                    }
               }
               else if (style == MethodCallStyle.Recursive)
               {
-                   array.Partition(out pivot, style, left: left, right: right);
                    if (left < right)
                    {
-                        if (pivot > 1)
-                             array.QuickSort(left, pivot - 1);
-
-                        if (pivot + 1 < right)
-                             array.QuickSort(pivot + 1, right);
+                        pivot = array.Partition(left, right, order);
+                        if (left <= pivot)
+                             array.QuickSort(left, pivot, order, style);
+                        if (pivot + 1 <= right)
+                             array.QuickSort(pivot + 1, right, order, style);
                    }
               }
-              if (order == SortOrders.Descending)
-                   array.Reverse();
          }
 
          public static void Swap<T>(this object Object, ref T mainObject, ref T swappingObject)
@@ -333,10 +285,6 @@ namespace AlgoLabs
               T tmp = mainObject;
               mainObject = swappingObject;
               swappingObject = tmp;
-         }
-         public static int ToInt32(this double value)
-         {
-              return (int)value;
          }
          public static string ToTimeSpanString(this TimeSpan timeSpan)
          {
