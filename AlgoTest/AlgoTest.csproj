@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="SortingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UtilityTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlgoLabs\AlgoLabs.CSharp.csproj">
