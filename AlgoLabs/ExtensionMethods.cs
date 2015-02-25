@@ -135,12 +135,12 @@ namespace AlgoLabs
          /// <param name="runningTime"></param>
          public static void Print<T, Algorithm, CallStyle>(this T[] array, Algorithm algorithm, CallStyle callStyle, TimeSpan? runningTime)  where T:struct
          {
-              Console.Write("{0}\t\t{1}\t", algorithm.ToString(), callStyle.ToString());
+              Console.Write("{0,0}{1,20}\t", algorithm.ToString().Substring(0, 5), callStyle.ToString());
               for (int i = 0; i < array.Length - 1; i++)
                    Console.Write("{0} ", array[i]);
               Console.Write(array[array.Length - 1]);
               if (runningTime.HasValue)
-                   Console.Write("\t\t{0}\n", runningTime.Value.ToTimeSpanString());
+                   Console.Write("{0,30}\n", runningTime.Value.ToTimeSpanString());
          }
 
          public static void BubbleSort<T>(this T[] array, 
@@ -276,6 +276,78 @@ namespace AlgoLabs
                              array.QuickSort(left, pivot, order, style);
                         if (pivot + 1 <= right)
                              array.QuickSort(pivot + 1, right, order, style);
+                   }
+              }
+         }
+
+         public static void SelectionSort<T>(this T[] array,
+              int n = 0, int min = 0, int j = 0,
+              SortOrders order = SortOrders.Ascending,
+              MethodCallStyle style = MethodCallStyle.Iterative)
+         {
+              int length = array.Length;
+              IComparer<T> comparer = Comparer<T>.Default;
+              if (style == MethodCallStyle.Iterative)
+              {
+                   /* a[0] to a[n-1] is the array to sort */
+                   int iMin;
+
+                   /* advance the position through the entire array */
+                   /*   (could do j < n-1 because single element is also min element) */
+                   for (j = 0; j < length - 1; j++)
+                   {
+                        /* find the min element in the unsorted a[j .. n-1] */
+
+                        /* assume the min is the first element */
+                        iMin = j;
+                        /* test against elements after j to find the smallest */
+                        for (int i = j + 1; i < length; i++)
+                        {
+                             if (order == SortOrders.Ascending)
+                             {
+                                  /* if this element is less, then it is the new minimum */
+                                  if (comparer.Compare(array[i], array[iMin]) < 0)
+                                       /* found new minimum; remember its index */
+                                       iMin = i;
+                             }
+                             else if (order == SortOrders.Descending)
+                             {
+                                  /* if this element is less, then it is the new minimum */
+                                  if (comparer.Compare(array[i], array[iMin]) > 0)
+                                       /* found new minimum; remember its index */
+                                       iMin = i;
+                             }
+                        }
+
+                        if (iMin != j)
+                             array[j].Swap(ref array[j], ref array[iMin]);
+                   }
+              }
+              else if (style == MethodCallStyle.Recursive)
+              {
+                   if (n == length)
+                        return;
+                   else
+                   {
+                        j = n + 1;
+                        min = n;
+                        if (j < length)
+                        {
+                             if (order == SortOrders.Ascending)
+                             {
+                                  if (comparer.Compare(array[j], array[min]) < 0)
+                                       min = j;
+                             }
+                             else if (order == SortOrders.Descending)
+                             {
+                                  if (comparer.Compare(array[j], array[min]) > 0)
+                                       min = j;
+                             }
+                             array.SelectionSort(n + 1, min, j + 1, order, style);
+                        }
+                        if (min != n)
+                             array[n].Swap(ref array[n], ref array[min]);
+                        array.SelectionSort(n + 1, min, j, order, style);
                    }
               }
          }

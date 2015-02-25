@@ -64,6 +64,21 @@ namespace AlgoLabs
                     array = new int[] { 3, 1, 7, 5, 4, 2, 8, 6 };
                     array.QuickSort(order: SortOrders.Descending);
                     array.Print(SortAlgorithms.Quick, MethodCallStyle.Iterative, runningTime);
+
+                    Console.Write("\n");
+                    array = new int[] { 3, 1, 7, 5, 4, 2, 8, 6 };
+                    array.SelectionSort(style: MethodCallStyle.Recursive);
+                    array.Print(SortAlgorithms.Quick, MethodCallStyle.Recursive, runningTime);
+                    array = new int[] { 3, 1, 7, 5, 4, 2, 8, 6 };
+                    array.SelectionSort();
+                    array.Print(SortAlgorithms.Selection, MethodCallStyle.Iterative, runningTime: runningTime);
+                    array = new int[] { 3, 1, 7, 5, 4, 2, 8, 6 };
+                    array.QuickSort(order: SortOrders.Descending, style: MethodCallStyle.Recursive);
+                    array.Print(SortAlgorithms.Quick, MethodCallStyle.Recursive, runningTime);
+                    array = new int[] { 3, 1, 7, 5, 4, 2, 8, 6 };
+                    array.QuickSort(order: SortOrders.Descending);
+                    array.Print(SortAlgorithms.Selection, MethodCallStyle.Iterative, runningTime);
+
                     Console.ReadKey();
                }
                catch (NotImplementedException nex)
